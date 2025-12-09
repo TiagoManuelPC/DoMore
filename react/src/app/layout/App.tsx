@@ -1,53 +1,16 @@
-import { CssBaseline, Container, Box, Typography } from '@mui/material';
-import { useState } from "react";
+import { CssBaseline, Container, Box } from '@mui/material';
 import NavBar from './NavBar';
-import ActivityDashboard from '../../features/activities/dashboard/ActivityDashboard';
-import { useActivities } from '../../lib/hooks/useActivities';
+import { Outlet } from 'react-router';
 
 function App() {
-    // Custom hook to fetch activities
-    const { activities, isPending } = useActivities();
-    const [selectedActivity, setSelectedActivity] = useState<Activity | undefined>(undefined);
-    const [editMode, setEditMode] = useState(false);
-
-    
-    const handleSelectActivity = (id: string) => {
-        setSelectedActivity(activities!.find(x => x.id === id));
-    };
-
-    const handleCancelSelectActivity = () => {
-        setSelectedActivity(undefined);
-    }
-
-    const handleOpenForm = (id?: string) => {
-        if(id) handleSelectActivity(id);
-        else handleCancelSelectActivity();
-        setEditMode(true);
-    }
-
-    const handleCloseForm = () => {
-        setEditMode(false);
-    }
 
     return (
-        <Box sx={{bgcolor: '#eeeeee', minHeight: '100vh'}}>
+        <Box sx={{ bgcolor: '#eeeeee', minHeight: '100vh' }}>
             <CssBaseline /> {/* Reset CSS styles */}
-            <NavBar openForm={handleOpenForm} />
+            <NavBar />
             <Container maxWidth="xl" sx={{ mt: 3 }}>
-                {!activities|| isPending ? <Typography variant="h6">Loading activities...</Typography> : 
-                <ActivityDashboard 
-                    activities={activities}
-                    selectActivity={handleSelectActivity}
-                    cancelSelectActivity={handleCancelSelectActivity}
-                    selectedActivity={selectedActivity}
-                    editMode={editMode}
-                    openForm={handleOpenForm}
-                    closeForm={handleCloseForm}
-                />  
-                }
-                
+                <Outlet />
             </Container>
-
         </Box>
     )
 }
