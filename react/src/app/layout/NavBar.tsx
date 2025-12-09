@@ -12,7 +12,7 @@ export default function NavBar() {
                         <Box>
                             <MenuItem component={NavLink} to="/" sx={{ display: 'flex', gap: '2' }}>
                                 <Group fontSize="large" />
-                                <Typography variant="h4" fontWeight="bold">DoMore</Typography>
+                                <Typography variant="h4" fontWeight="bold">Do More</Typography>
                             </MenuItem>
                         </Box>
                         <Box sx={{ display: 'flex' }}>
